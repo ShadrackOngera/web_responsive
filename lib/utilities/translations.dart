@@ -7,29 +7,34 @@ class LanguageTranslations extends Translations {
         //English
         'en': {
           'that-says': 'THAT SAYS',
-          'welcome': 'WELCOME',
-          'to-the-bank': 'TO THE BANK',
-          'login': 'LOGIN',
-          'good-evening': 'Good evening',
-          'good-afternoon': 'Good afternoon',
-          'hi-there': 'Hi There',
-          'good-morning': 'Good morning',
-          'password': 'Password',
-          'phone-number': 'Phone Number',
-          'enter-password': 'Enter Password',
-          'enter-your-password': 'Enter Your Password',
-          'choose-the-profile-to-continue-with': 'Choose the Profile to continue with',
-          'you-can-easily-switch-between-profiles-when-logged-in':'You can easily switch between profiles when logged in'
-          
-          
-
+          'welcome': 'Welcome',
+          'about': 'About',
+          'contact': 'Contact',
+          'home': 'Home'
         },
         //Swahili
         'sw': {
-          'that-says': 'ISEMAYO',
-          'welcome': 'KARIBU',
-          'to-the-bank': 'KWENYE BENKI',
-          'login': 'INGIA',
+          'that-says': 'HILI LINASEMA',
+          'welcome': 'Karibu',
+          'about': 'Kuhusu',
+          'contact': 'Wasiliana nasi',
+          'home': 'Nyumbani'
+        },
+        //Russian
+        'ru': {
+          'that-says': 'ЭТО ГОВОРИТ',
+          'welcome': 'Добро пожаловать',
+          'about': 'О нас',
+          'contact': 'Контакты',
+          'home': 'Главная'
+        },
+        // French
+        'fr': {
+          'that-says': 'CELA DIT',
+          'welcome': 'Bienvenue',
+          'about': 'À propos',
+          'contact': 'Contact',
+          'home': 'Accueil'
         },
       };
 }
