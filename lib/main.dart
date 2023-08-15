@@ -15,11 +15,15 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       translations: LanguageTranslations(),
       locale: Locale('en', ''),
+      localizationsDelegates: [
+        DefaultMaterialLocalizations.delegate,
+        DefaultWidgetsLocalizations.delegate,
+      ],
       supportedLocales: [
         Locale('en', ''),
-        Locale('sw', ''),
-        Locale('fr', ''),
-        Locale('ru', ''),
+        // Locale('sw', ''),
+        // Locale('fr', ''),
+        // Locale('ru', ''),
       ],
       title: 'Flutter Demo',
       theme: ThemeData(

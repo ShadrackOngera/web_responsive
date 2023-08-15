@@ -21,7 +21,7 @@ class _MyDrawerState extends State<MyDrawer> {
         children: [
           DrawerHeader(
             child: Text(
-              'Drawer Header',
+              'WebSite',
             ),
           ),
           ListTile(
@@ -38,7 +38,7 @@ class _MyDrawerState extends State<MyDrawer> {
             leading: Icon(Icons.person_3, color: Color(AppColors.kGray500)),
             title: Text(
               'home'.tr,
-              style: TextStyle(
+              style:const TextStyle(
                 color: Color(AppColors.kGray500),
               ),
             ),
