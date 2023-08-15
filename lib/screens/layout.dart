@@ -41,6 +41,7 @@ class _MasterLayoutState extends State<MasterLayout> {
               MyDrawer(),
               Obx(
                 () => Container(
+                  margin: EdgeInsets.all(20),
                   child: navigationcontroller.selectedScreen.value ==
                           SelectedScreen.Home
                       ? HomeScreen()

@@ -10,6 +10,16 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      children: [
+        InkWell(
+          onHover: (v) {},
+          child: CircleAvatar(
+            backgroundColor: Colors.blue.shade300,
+            minRadius: 80,
+          ),
+        )
+      ],
+    );
   }
 }
