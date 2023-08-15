@@ -16,14 +16,7 @@ class MasterLayout extends StatefulWidget {
 }
 
 class _MasterLayoutState extends State<MasterLayout> {
-  // final List supportedLanguages = [
-  //   Locale('en', ''),'English',
-  //   Locale('ru', ''),'Russian',
-  //   Locale('fr', ''),'French',
-  //   Locale('sw', ''),'Swahili',
-
-  // ];
-  Language? _selectedLanguage; // Variable to store the selected language
+  bool _showLanguages = false;
 
   final List supportedLanguages = [
     {'locale': Locale('en', ''), 'name': 'English'},
@@ -41,72 +34,88 @@ class _MasterLayoutState extends State<MasterLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Row(
-      children: [
-        MyDrawer(),
-        Obx(
-          () => Stack(
+      body: Stack(
+        children: [
+          Row(
             children: [
-              Container(
-                child: navigationcontroller.selectedScreen.value ==
-                        SelectedScreen.Home
-                    ? HomeScreen()
-                    : navigationcontroller.selectedScreen.value ==
-                            SelectedScreen.Contact
-                        ? ContactScreen()
-                        : navigationcontroller.selectedScreen.value ==
-                                SelectedScreen.About
-                            ? AboutScreen()
-                            : null,
-              ),
-              Positioned(
-                top: 0,
-                right: 10,
-                child: Container(
-                  width: 500,
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Get.updateLocale(Locale('en', ''));
-                        },
-                        child: Text(
-                          'english'.tr,
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Get.updateLocale(Locale('ru', ''));
-                        },
-                        child: Text(
-                          'russian'.tr,
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Get.updateLocale(Locale('fr', ''));
-                        },
-                        child: Text(
-                          'french'.tr,
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Get.updateLocale(Locale('sw', ''));
-                        },
-                        child: Text(
-                          'swahili'.tr,
-                        ),
-                      ),
-                    ],
-                  ),
+              MyDrawer(),
+              Obx(
+                () => Container(
+                  child: navigationcontroller.selectedScreen.value ==
+                          SelectedScreen.Home
+                      ? HomeScreen()
+                      : navigationcontroller.selectedScreen.value ==
+                              SelectedScreen.Contact
+                          ? ContactScreen()
+                          : navigationcontroller.selectedScreen.value ==
+                                  SelectedScreen.About
+                              ? AboutScreen()
+                              : null,
                 ),
-              ),
+              )
             ],
           ),
-        )
-      ],
-    ));
+          Positioned(
+            top: 0,
+            right: -150,
+            child: Container(
+              width: 500,
+              child: Column(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        _showLanguages = !_showLanguages;
+                      });
+                    },
+                    child: Text(
+                      'change-language'.tr,
+                    ),
+                  ),
+                  if (_showLanguages)
+                    Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.updateLocale(Locale('en', ''));
+                          },
+                          child: Text(
+                            'english'.tr,
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.updateLocale(Locale('ru', ''));
+                          },
+                          child: Text(
+                            'russian'.tr,
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.updateLocale(Locale('fr', ''));
+                          },
+                          child: Text(
+                            'french'.tr,
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.updateLocale(Locale('sw', ''));
+                          },
+                          child: Text(
+                            'swahili'.tr,
+                          ),
+                        ),
+                      ],
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 

@@ -10,7 +10,8 @@ class LanguageTranslations extends Translations {
           'welcome': 'Welcome',
           'about': 'About',
           'contact': 'Contact',
-          'home': 'Home'
+          'home': 'Home',
+          'change-language': 'Change Language',
         },
         //Swahili
         'sw': {
