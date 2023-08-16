@@ -110,6 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 sendMessageToUser(messagingFieldValue.text);
                 messagingFieldValue.text = '';
+                messagingController.homeMessage.value = '';
               },
               child: Text(
                 'send'.tr,
