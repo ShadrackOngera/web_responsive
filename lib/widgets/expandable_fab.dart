@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'dart:math' as math;
 
+import 'package:flutter_svg/svg.dart';
+
 @immutable
 class ExpandableFab extends StatefulWidget {
   const ExpandableFab({
@@ -134,7 +136,13 @@ class _ExpandableFabState extends State<ExpandableFab>
           duration: const Duration(milliseconds: 250),
           child: FloatingActionButton(
             onPressed: _toggle,
-            child: const Icon(Icons.create),
+            child: Transform.scale(
+              scale: .6,
+              child: SvgPicture.asset(
+                'assets/icons/translate.svg',
+                color: Colors.purple,
+              ),
+            ),
           ),
         ),
       ),
