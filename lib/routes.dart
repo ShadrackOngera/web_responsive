@@ -15,6 +15,7 @@ export 'package:web_responsive/controllers/navigation_controller.dart';
 
 //widgets
 export 'package:web_responsive/widgets/drawer.dart';
+export 'package:web_responsive/widgets/expandable_fab.dart';
 
 //screens
 export 'package:web_responsive/screens/home.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_responsive/routes.dart';
 
+
 class Language {
   final Locale locale;
   final String displayName;
@@ -16,6 +17,24 @@ class MasterLayout extends StatefulWidget {
 }
 
 class _MasterLayoutState extends State<MasterLayout> {
+  static const _actionTitles = ['Create Post', 'Upload Photo', 'Upload Video'];
+  void _showAction(BuildContext context, int index) {
+    showDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text(_actionTitles[index]),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('CLOSE'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   bool _showLanguages = false;
 
   final List supportedLanguages = [
@@ -34,85 +53,52 @@ class _MasterLayoutState extends State<MasterLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: Row(
         children: [
-          Row(
-            children: [
-              MyDrawer(),
-              Obx(
-                () => Container(
-                  margin: EdgeInsets.all(20),
-                  child: navigationcontroller.selectedScreen.value ==
-                          SelectedScreen.Home
-                      ? HomeScreen()
+          MyDrawer(),
+          Obx(
+            () => Container(
+              margin: EdgeInsets.all(20),
+              child: navigationcontroller.selectedScreen.value ==
+                      SelectedScreen.Home
+                  ? HomeScreen()
+                  : navigationcontroller.selectedScreen.value ==
+                          SelectedScreen.Contact
+                      ? ContactScreen()
                       : navigationcontroller.selectedScreen.value ==
-                              SelectedScreen.Contact
-                          ? ContactScreen()
-                          : navigationcontroller.selectedScreen.value ==
-                                  SelectedScreen.About
-                              ? AboutScreen()
-                              : null,
-                ),
-              )
-            ],
-          ),
-          Positioned(
-            top: 0,
-            right: -150,
-            child: Container(
-              width: 500,
-              child: Column(
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        _showLanguages = !_showLanguages;
-                      });
-                    },
-                    child: Text(
-                      'change-language'.tr,
-                    ),
-                  ),
-                  if (_showLanguages)
-                    Column(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            Get.updateLocale(Locale('en', ''));
-                          },
-                          child: Text(
-                            'english'.tr,
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Get.updateLocale(Locale('ru', ''));
-                          },
-                          child: Text(
-                            'russian'.tr,
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Get.updateLocale(Locale('fr', ''));
-                          },
-                          child: Text(
-                            'french'.tr,
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Get.updateLocale(Locale('sw', ''));
-                          },
-                          child: Text(
-                            'swahili'.tr,
-                          ),
-                        ),
-                      ],
-                    ),
-                ],
-              ),
+                              SelectedScreen.About
+                          ? AboutScreen()
+                          : null,
             ),
+          )
+        ],
+      ),
+      floatingActionButton: ExpandableFab(
+        distance: 112,
+        children: [
+          LanguageButtons(
+            onPressed: () {
+              Get.updateLocale(Locale('en', ''));
+            },
+            text: 'English',
+          ),
+          LanguageButtons(
+            onPressed: () {
+              Get.updateLocale(Locale('ru', ''));
+            },
+            text: 'Russian',
+          ),
+          LanguageButtons(
+            onPressed: () {
+              Get.updateLocale(Locale('sw', ''));
+            },
+            text: 'Swahili',
+          ),
+          LanguageButtons(
+            onPressed: () {
+              Get.updateLocale(Locale('fr', ''));
+            },
+            text: 'French',
           ),
         ],
       ),
