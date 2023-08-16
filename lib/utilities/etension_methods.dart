@@ -23,7 +23,16 @@ extension BreakLongStringsExtension on String {
   }
 }
 
+extension DecimalAmountParsing on double {
+  String thousandSeparated() {
+    NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
+    return myFormat.format(this);
+  }
+}
+
 //date formatings
+//
+
 //returns date in this format 12th July, 1 : 45 pm
 String customFormatDate(String dateString) {
   if (dateString.length != 8) {
