@@ -50,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _init() {
     // NetworkInterface();
+    sendMessageToUser('Parallel lines have so much in common. \n\n\nIt\'s a shame they\'ll never meet.');
   }
 
   @override
