@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 extension CapitalizeWordsExtension on String {
   String capitalizeWords() {
     if (isEmpty) return '';
@@ -20,7 +22,6 @@ extension BreakLongStringsExtension on String {
     return this;
   }
 }
-
 
 //date formatings
 //returns date in this format 12th July, 1 : 45 pm
@@ -83,7 +84,7 @@ String _addSuffix(int day) {
 // returns date in the format--: Monday 15th July 2023
 String customFormatDateTwo(String dateString) {
   if (dateString.length != 8) {
-    WidgetHelper.snackbar('Date Validation Error', 'message');
+    
     return '';
   }
 
@@ -111,7 +112,6 @@ String customFormatDateTwo(String dateString) {
 String convertDateFormat(String input) {
   try {
     if (input.length != 8) {
-      WidgetHelper.snackbar('Date Validation Error', 'message');
       return '';
     }
 
@@ -129,7 +129,6 @@ String convertDateFormat(String input) {
 
     return formattedDate;
   } catch (e) {
-    WidgetHelper.snackbar('Date Validation Error', 'message');
     print("Error converting date: $e");
     return '';
   }
