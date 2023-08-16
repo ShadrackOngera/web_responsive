@@ -1,7 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:web_responsive/controllers/messaging_controller.dart';
+import 'package:web_responsive/routes.dart';
 import 'package:web_responsive/utilities/private_keys.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,18 +13,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Future<void> sendMessageToUser() async {
+  Future<void> sendMessageToUser(String message) async {
     final botToken = PrivateKeys.telegram_bot_token;
     final chatId = PrivateKeys.chat_id;
-
     final response = await http.post(
       Uri.parse('https://api.telegram.org/bot$botToken/sendMessage'),
       headers: {
-        'Content-Type': 'application/json', // Specify content type as JSON
+        'Content-Type': 'application/json',
       },
       body: json.encode({
         'chat_id': chatId,
-        'text': 'Your message here',
+        'text': message,
       }),
     );
 
@@ -34,39 +34,89 @@ class _HomeScreenState extends State<HomeScreen> {
       print('Response: ${response.body}');
     }
   }
-  // Future<void> sendMessageToUser() async {
-  //   final botToken = PrivateKeys.telegram_bot_token;
-  //   final chatId = PrivateKeys.chat_id;
 
-  //   final response = await http.post(
-  //     Uri.parse('https://api.telegram.org/bot$botToken/sendMessage'),
-  //     body: {
-  //       'chat_id': chatId,
-  //       'text': 'Your message here',
-  //     },
-  //   );
+  final MessagingController messagingController = Get.find();
+  TextEditingController messagingFieldValue = TextEditingController();
 
-  //   if (response.statusCode == 200) {
-  //     print('Message sent successfully');
-  //   } else {
-  //     print('Failed to send message');
-  //   }
-  // }
+  _init() {
+    // NetworkInterface();
+  }
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero, _init);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         GestureDetector(
           onTap: () {
-            sendMessageToUser();
+            sendMessageToUser('Poked');
             print('object');
           },
           child: CircleAvatar(
             backgroundColor: Colors.blue.shade300,
             minRadius: 80,
           ),
-        )
+        ),
+        const SizedBox(height: 15),
+        SizedBox(
+          width: 350,
+          child: TextFormField(
+            controller: messagingFieldValue,
+            onChanged: (v) {
+              messagingController.homeMessage.value = messagingFieldValue.text;
+            },
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 10.0,
+              ),
+              hintText: 'leave-me-a-message'.tr,
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4.0),
+                borderSide: BorderSide(
+                  color: Colors.grey.shade400,
+                  // width: 1,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4.0),
+                borderSide: BorderSide(
+                  color: Colors.blue.shade300,
+                  width: 1,
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4.0),
+                borderSide: BorderSide(
+                  color: Colors.red.shade300,
+                  width: 1,
+                ),
+              ),
+              filled: true,
+              fillColor: Colors.white,
+            ),
+          ),
+        ),
+        const SizedBox(height: 15),
+        Obx(
+          () => Visibility(
+            visible: messagingController.homeMessage.value.length > 1,
+            child: ElevatedButton(
+              onPressed: () {
+                sendMessageToUser(messagingFieldValue.text);
+                messagingFieldValue.text = '';
+              },
+              child: Text(
+                'send'.tr,
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

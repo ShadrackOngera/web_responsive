@@ -37,5 +37,6 @@ class MyApp extends StatelessWidget {
 
   void injectControllers() {
     Get.put(NavigationController());
+    Get.put(MessagingController());
   }
 }

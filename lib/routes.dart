@@ -8,6 +8,8 @@ export 'package:web_responsive/utilities/constants.dart';
 
 //controllers
 export 'package:web_responsive/controllers/navigation_controller.dart';
+export 'package:web_responsive/controllers/messaging_controller.dart';
+
 
 //models
 

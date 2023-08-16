@@ -12,6 +12,8 @@ class LanguageTranslations extends Translations {
           'contact': 'Contact',
           'home': 'Home',
           'change-language': 'Change Language',
+          'send':'Send',
+          'leave-me-a-message':'Leave me a Message'
         },
         //Swahili
         'sw': {
