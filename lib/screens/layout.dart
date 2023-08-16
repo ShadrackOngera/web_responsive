@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web_responsive/routes.dart';
 
-
 class Language {
   final Locale locale;
   final String displayName;
@@ -53,9 +52,11 @@ class _MasterLayoutState extends State<MasterLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: MediaQuery.of(context).size.width < 900 ? AppBar() : null,
+      drawer: MyDrawer(),
       body: Row(
         children: [
-          MyDrawer(),
+          MediaQuery.of(context).size.width > 900 ? MyDrawer() : SizedBox(),
           Obx(
             () => Container(
               margin: EdgeInsets.all(20),
