@@ -52,7 +52,7 @@ class _MasterLayoutState extends State<MasterLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MediaQuery.of(context).size.width < 900 ? AppBar() : null,
+      appBar: MediaQuery.of(context).size.width < 900 ? AppBar( toolbarHeight: 200, ) : null,
       drawer: MyDrawer(),
       body: Row(
         children: [
