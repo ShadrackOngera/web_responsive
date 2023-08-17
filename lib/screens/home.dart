@@ -15,27 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final NavigationController navigationcontroller = Get.find();
-  Future<void> sendMessageToUser(String message) async {
-    final botToken = PrivateKeys.telegram_bot_token;
-    final chatId = PrivateKeys.chat_id;
-    final response = await http.post(
-      Uri.parse('https://api.telegram.org/bot$botToken/sendMessage'),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: json.encode({
-        'chat_id': chatId,
-        'text': message,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      print('Message sent successfully');
-    } else {
-      print('Failed to send message');
-      print('Response: ${response.body}');
-    }
-  }
+  
 
   Future<void> _launchTwitter() async {
     if (!await launchUrlString(
