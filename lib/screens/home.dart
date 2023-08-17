@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:web_responsive/controllers/messaging_controller.dart';
+import 'package:web_responsive/helpers/http_helper.dart';
 import 'package:web_responsive/routes.dart';
 import 'package:web_responsive/utilities/private_keys.dart';
 
@@ -15,7 +16,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final NavigationController navigationcontroller = Get.find();
-  
 
   Future<void> _launchTwitter() async {
     if (!await launchUrlString(
@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           GestureDetector(
             onTap: () {
-              sendMessageToUser('Poked');
+              HttpHelper().sendMessageToUser('Poked');
               print('object');
             },
             child: CircleAvatar(
@@ -61,8 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
           TextFormField(
             controller: messagingFieldValue,
             onChanged: (v) {
-              messagingController.homeMessage.value =
-                  messagingFieldValue.text;
+              messagingController.homeMessage.value = messagingFieldValue.text;
             },
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(
@@ -100,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
               visible: messagingController.homeMessage.value.length > 1,
               child: ElevatedButton(
                 onPressed: () {
-                  sendMessageToUser(messagingFieldValue.text);
+                  HttpHelper().sendMessageToUser(messagingFieldValue.text);
                   messagingFieldValue.text = '';
                   messagingController.homeMessage.value = '';
                 },
