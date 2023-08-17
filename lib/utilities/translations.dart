@@ -13,7 +13,8 @@ class LanguageTranslations extends Translations {
           'home': 'Home',
           'change-language': 'Change Language',
           'send':'Send',
-          'leave-me-a-message':'Leave me a Message'
+          'leave-me-a-message':'Leave me a Message',
+          'socials':'Socials',
         },
         //Swahili
         'sw': {

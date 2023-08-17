@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final NavigationController navigationcontroller = Get.find();
   Future<void> sendMessageToUser(String message) async {
     final botToken = PrivateKeys.telegram_bot_token;
     final chatId = PrivateKeys.chat_id;
@@ -61,26 +62,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        GestureDetector(
-          onTap: () {
-            sendMessageToUser('Poked');
-            print('object');
-          },
-          child: CircleAvatar(
-            backgroundColor: Colors.blue.shade300,
-            minRadius: 80,
+    return SizedBox(
+      width: navigationcontroller.screenWidth.value * .4,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          GestureDetector(
+            onTap: () {
+              sendMessageToUser('Poked');
+              print('object');
+            },
+            child: CircleAvatar(
+              backgroundColor: Colors.blue.shade300,
+              minRadius: 80,
+            ),
           ),
-        ),
-        const SizedBox(height: 15),
-        SizedBox(
-          width: 350,
-          child: TextFormField(
+          const SizedBox(height: 15),
+          TextFormField(
             controller: messagingFieldValue,
             onChanged: (v) {
-              messagingController.homeMessage.value = messagingFieldValue.text;
+              messagingController.homeMessage.value =
+                  messagingFieldValue.text;
             },
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(
@@ -112,37 +114,42 @@ class _HomeScreenState extends State<HomeScreen> {
               fillColor: Colors.white,
             ),
           ),
-        ),
-        const SizedBox(height: 15),
-        Obx(
-          () => Visibility(
-            visible: messagingController.homeMessage.value.length > 1,
-            child: ElevatedButton(
-              onPressed: () {
-                sendMessageToUser(messagingFieldValue.text);
-                messagingFieldValue.text = '';
-                messagingController.homeMessage.value = '';
-              },
-              child: Text(
-                'send'.tr,
+          const SizedBox(height: 15),
+          Obx(
+            () => Visibility(
+              visible: messagingController.homeMessage.value.length > 1,
+              child: ElevatedButton(
+                onPressed: () {
+                  sendMessageToUser(messagingFieldValue.text);
+                  messagingFieldValue.text = '';
+                  messagingController.homeMessage.value = '';
+                },
+                child: Text(
+                  'send'.tr,
+                ),
               ),
             ),
           ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Row(
-          children: [
-            InkWell(
-              onTap: _launchTwitter,
-              child: Icon(
-                Icons.abc,
+          const SizedBox(
+            height: 20,
+          ),
+          Text('socials'.tr),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            children: [
+              InkWell(
+                onTap: _launchTwitter,
+                child: Icon(
+                  Icons.close,
+                  color: Colors.black,
+                ),
               ),
-            ),
-          ],
-        )
-      ],
+            ],
+          )
+        ],
+      ),
     );
   }
 }

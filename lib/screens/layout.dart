@@ -51,14 +51,22 @@ class _MasterLayoutState extends State<MasterLayout> {
   final NavigationController navigationcontroller = Get.find();
   @override
   Widget build(BuildContext context) {
+    navigationcontroller.screenWidth.value = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: MediaQuery.of(context).size.width < 900 ? AppBar( toolbarHeight: 200, ) : null,
+      appBar: MediaQuery.of(context).size.width < 900
+          ? AppBar(
+              toolbarHeight: 200,
+            )
+          : null,
       drawer: MyDrawer(),
       body: Row(
         children: [
           MediaQuery.of(context).size.width > 900 ? MyDrawer() : SizedBox(),
           Obx(
             () => Container(
+              // width: MediaQuery.of(context).size.width,
+              alignment: Alignment.center,
+              color: Colors.orange,
               margin: EdgeInsets.all(20),
               child: navigationcontroller.selectedScreen.value ==
                       SelectedScreen.Home
