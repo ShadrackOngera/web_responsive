@@ -15,18 +15,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final NavigationController navigationcontroller = Get.find();
-
-  Future<void> _launchTwitter() async {
-    if (!await launchUrlString(
-      'https://pub.dev/packages/url_launcher',
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw Exception('Could not launch');
-    }
-  }
-
   final MessagingController messagingController = Get.find();
+  final NavigationController navigationcontroller = Get.find();
   TextEditingController messagingFieldValue = TextEditingController();
 
   _init() {
@@ -42,10 +32,62 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: navigationcontroller.screenWidth.value * .4,
+    double screenWidth = navigationcontroller.screenWidth.value;
+    return 
+     Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        HomeCentre(),
+        HomeRight(),
+      ],
+    );
+  }
+}
+
+class HomeRight extends StatelessWidget {
+  const HomeRight({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text('dfghjk'),
+        ],
+      ),
+    );
+  }
+}
+
+class HomeCentre extends StatefulWidget {
+  const HomeCentre({super.key});
+
+  @override
+  State<HomeCentre> createState() => _HomeCentreState();
+}
+
+class _HomeCentreState extends State<HomeCentre> {
+  final NavigationController navigationcontroller = Get.find();
+
+  Future<void> _launchTwitter() async {
+    if (!await launchUrlString(
+      'https://pub.dev/packages/url_launcher',
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch');
+    }
+  }
+
+  final MessagingController messagingController = Get.find();
+  TextEditingController messagingFieldValue = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: navigationcontroller.screenWidth.value * .3,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GestureDetector(
             onTap: () {
@@ -112,11 +154,21 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 20,
           ),
-          Text('socials'.tr),
+          Center(
+            child: Text(
+              'socials'.tr,
+              style: TextStyle(
+                color: Colors.brown.shade900,
+                fontWeight: FontWeight.w700,
+                fontSize: 19,
+              ),
+            ),
+          ),
           const SizedBox(
             height: 20,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               InkWell(
                 onTap: _launchTwitter,
@@ -126,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

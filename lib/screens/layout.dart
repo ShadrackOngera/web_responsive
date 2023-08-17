@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_responsive/helpers/http_helper.dart';
 import 'package:web_responsive/routes.dart';
 
 class Language {
@@ -53,31 +54,36 @@ class _MasterLayoutState extends State<MasterLayout> {
   Widget build(BuildContext context) {
     navigationcontroller.screenWidth.value = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: MediaQuery.of(context).size.width < 900
-          ? AppBar(
-              toolbarHeight: 200,
-            )
-          : null,
+      appBar: MediaQuery.of(context).size.width < 900 ? myAppbar() : null,
       drawer: MyDrawer(),
       body: Row(
         children: [
-          MediaQuery.of(context).size.width > 900 ? MyDrawer() : SizedBox(),
+          navigationcontroller.screenWidth.value > 900
+              ? MyDrawer()
+              : SizedBox(),
           Obx(
-            () => Container(
-              // width: MediaQuery.of(context).size.width,
-              alignment: Alignment.center,
-              color: Colors.orange,
-              margin: EdgeInsets.all(20),
-              child: navigationcontroller.selectedScreen.value ==
-                      SelectedScreen.Home
-                  ? HomeScreen()
-                  : navigationcontroller.selectedScreen.value ==
-                          SelectedScreen.Contact
-                      ? ContactScreen()
-                      : navigationcontroller.selectedScreen.value ==
-                              SelectedScreen.About
-                          ? AboutScreen()
-                          : null,
+            () => Expanded(
+              child: Column(
+                children: [
+                  myAppbar(),
+                  Container(
+                    // width: MediaQuery.of(context).size.width,
+                    alignment: Alignment.center,
+                    // color: Colors.orange,
+                    margin: EdgeInsets.all(20),
+                    child: navigationcontroller.selectedScreen.value ==
+                            SelectedScreen.Home
+                        ? HomeScreen()
+                        : navigationcontroller.selectedScreen.value ==
+                                SelectedScreen.Contact
+                            ? ContactScreen()
+                            : navigationcontroller.selectedScreen.value ==
+                                    SelectedScreen.About
+                                ? AboutScreen()
+                                : null,
+                  ),
+                ],
+              ),
             ),
           )
         ],
@@ -111,6 +117,31 @@ class _MasterLayoutState extends State<MasterLayout> {
           ),
         ],
       ),
+    );
+  }
+
+  AppBar myAppbar() {
+    return AppBar(
+      toolbarHeight: 65,
+      actions: [
+        Obx(
+          () => Text(
+            '${navigationcontroller.screenWidth.value}',
+          ),
+        ),
+        IconButton(
+          onPressed: () {
+            print(HttpHelper().fetchCatFacts(''));
+          },
+          icon: Icon(
+            Icons.info,
+            color: Colors.brown,
+          ),
+        ),
+        SizedBox(
+          width: 20,
+        )
+      ],
     );
   }
 }
