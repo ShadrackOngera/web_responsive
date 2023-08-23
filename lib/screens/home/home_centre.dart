@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:web_responsive/controllers/messaging_controller.dart';
 import 'package:web_responsive/helpers/http_helper.dart';
-import 'package:web_responsive/routes.dart';
+import 'package:web_responsive/exports.dart';
 import 'package:web_responsive/utilities/private_keys.dart';
 
 class HomeCentre extends StatefulWidget {

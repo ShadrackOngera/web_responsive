@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:web_responsive/routes.dart';
+import 'package:web_responsive/exports.dart';
 
 void main() {
   runApp(const MyApp());

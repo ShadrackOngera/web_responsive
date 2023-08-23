@@ -1,5 +1,5 @@
-import 'package:web_responsive/routes.dart';
-import 'package:web_responsive/routes.dart';
+import 'package:web_responsive/exports.dart';
+import 'package:web_responsive/exports.dart';
 
 class NavigationController extends GetxController {
   final Rx<SelectedScreen> selectedScreen = SelectedScreen.Home.obs;
