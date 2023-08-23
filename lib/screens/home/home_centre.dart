@@ -11,8 +11,6 @@ class HomeCentre extends StatefulWidget {
 }
 
 class _HomeCentreState extends State<HomeCentre> {
-  final NavigationController navigationcontroller = Get.find();
-
   Future<void> _launchTwitter() async {
     if (!await launchUrlString(
       'https://pub.dev/packages/url_launcher',
@@ -22,6 +20,7 @@ class _HomeCentreState extends State<HomeCentre> {
     }
   }
 
+  final NavigationController navigationcontroller = Get.find();
   final MessagingController messagingController = Get.find();
   TextEditingController messagingFieldValue = TextEditingController();
   @override
@@ -29,16 +28,33 @@ class _HomeCentreState extends State<HomeCentre> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        GestureDetector(
-          onTap: () {
-            HttpHelper().sendMessageToUser('Poked');
-            print('object');
-          },
-          child: CircleAvatar(
-            backgroundColor: Colors.blue.shade300,
-            minRadius: 80,
+        Align(
+          alignment: Alignment.center,
+          child: ClipPath(
+            clipper: ImageClipper(),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 250,
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Image.asset(
+                'assets/images/woman.jpg',
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
         ),
+        // GestureDetector(
+        //   onTap: () {
+        //     HttpHelper().sendMessageToUser('Poked');
+        //     print('object');
+        //   },
+        //   child: CircleAvatar(
+        //     backgroundColor: Colors.blue.shade300,
+        //     minRadius: 80,
+        //   ),
+        // ),
         const SizedBox(height: 15),
         TextFormField(
           controller: messagingFieldValue,
@@ -122,4 +138,35 @@ class _HomeCentreState extends State<HomeCentre> {
       ],
     );
   }
+}
+
+class ImageClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+    path.lineTo(0, size.height);
+
+    final controlPoint1 = Offset(size.width * 0.2, size.height);
+    final endPoint1 = Offset(size.width * 0.35, size.height * 0.7);
+    path.quadraticBezierTo(
+        controlPoint1.dx, controlPoint1.dy, endPoint1.dx, endPoint1.dy);
+
+    final controlPoint2 = Offset(size.width * 0.5, size.height * 0.4);
+    final endPoint2 = Offset(size.width * 0.65, size.height * 0.7);
+    path.quadraticBezierTo(
+        controlPoint2.dx, controlPoint2.dy, endPoint2.dx, endPoint2.dy);
+
+    final controlPoint3 = Offset(size.width * 0.8, size.height);
+    final endPoint3 = Offset(size.width, size.height);
+    path.quadraticBezierTo(
+        controlPoint3.dx, controlPoint3.dy, endPoint3.dx, endPoint3.dy);
+
+    path.lineTo(size.width, 0);
+
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

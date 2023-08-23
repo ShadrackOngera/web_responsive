@@ -39,14 +39,14 @@ class _MasterLayoutState extends State<MasterLayout> {
   bool _showLanguages = false;
 
   final List supportedLanguages = [
-    {'locale': Locale('en', ''), 'name': 'English'},
-    {'locale': Locale('ru', ''), 'name': 'Russian'},
-    {'locale': Locale('sw', ''), 'name': 'Swahili'},
-    {'locale': Locale('fr', ''), 'name': 'French'},
+    {'locale': const Locale('en', ''), 'name': 'English'},
+    {'locale': const Locale('ru', ''), 'name': 'Russian'},
+    {'locale': const Locale('sw', ''), 'name': 'Swahili'},
+    {'locale': const Locale('fr', ''), 'name': 'French'},
   ];
 
   Map<String, dynamic> selectedLanguage = {
-    'locale': Locale('en', ''),
+    'locale': const Locale('en', ''),
     'name': 'English'
   };
 
@@ -56,12 +56,12 @@ class _MasterLayoutState extends State<MasterLayout> {
     navigationcontroller.screenWidth.value = MediaQuery.of(context).size.width;
     return Scaffold(
       // appBar: MediaQuery.of(context).size.width < 900 ? myAppbar() : null,
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       body: Row(
         children: [
           navigationcontroller.screenWidth.value > 900
-              ? MyDrawer()
-              : SizedBox(),
+              ? const MyDrawer()
+              : const SizedBox(),
           Obx(
             () => Expanded(
               child: Column(
@@ -70,15 +70,15 @@ class _MasterLayoutState extends State<MasterLayout> {
                 children: [
                   myAppbar(),
                   Container(
-                    color: Colors.red,
-                    margin: EdgeInsets.all(20),
+                    // color: Colors.red,
+                    margin: const EdgeInsets.all(20),
                     child: navigationcontroller.selectedScreen.value ==
                             SelectedScreen.Home
                         ? LayoutBuilder(
                             builder: (BuildContext context,
                                 BoxConstraints constraints) {
                               if (constraints.maxWidth > 580) {
-                                return Row(
+                                return const Row(
                                   children: [
                                     Expanded(
                                       flex: 2,
@@ -97,7 +97,7 @@ class _MasterLayoutState extends State<MasterLayout> {
                                   ],
                                 );
                               } else {
-                                return Column(
+                                return const Column(
                                   children: [
                                     HomeCentre(),
                                     HomeRight(),
@@ -112,7 +112,7 @@ class _MasterLayoutState extends State<MasterLayout> {
                                 builder: (BuildContext context,
                                     BoxConstraints constraints) {
                                   if (constraints.maxWidth > 580) {
-                                    return Row(
+                                    return const Row(
                                       children: [
                                         Expanded(
                                           flex: 2,
@@ -131,7 +131,7 @@ class _MasterLayoutState extends State<MasterLayout> {
                                       ],
                                     );
                                   } else {
-                                    return Column(
+                                    return const Column(
                                       children: [
                                         ContactCentre(),
                                         ContactRight(),
@@ -146,7 +146,7 @@ class _MasterLayoutState extends State<MasterLayout> {
                                     builder: (BuildContext context,
                                         BoxConstraints constraints) {
                                       if (constraints.maxWidth > 580) {
-                                        return Row(
+                                        return const Row(
                                           children: [
                                             Expanded(
                                               flex: 2,
@@ -166,7 +166,7 @@ class _MasterLayoutState extends State<MasterLayout> {
                                           ],
                                         );
                                       } else {
-                                        return Column(
+                                        return const Column(
                                           children: [
                                             AboutCentre(),
                                             AboutRight(),
@@ -188,25 +188,25 @@ class _MasterLayoutState extends State<MasterLayout> {
         children: [
           LanguageButtons(
             onPressed: () {
-              Get.updateLocale(Locale('en', ''));
+              Get.updateLocale(const Locale('en', ''));
             },
             text: 'English',
           ),
           LanguageButtons(
             onPressed: () {
-              Get.updateLocale(Locale('ru', ''));
+              Get.updateLocale(const Locale('ru', ''));
             },
             text: 'Russian',
           ),
           LanguageButtons(
             onPressed: () {
-              Get.updateLocale(Locale('sw', ''));
+              Get.updateLocale(const Locale('sw', ''));
             },
             text: 'Swahili',
           ),
           LanguageButtons(
             onPressed: () {
-              Get.updateLocale(Locale('fr', ''));
+              Get.updateLocale(const Locale('fr', ''));
             },
             text: 'French',
           ),
@@ -243,12 +243,12 @@ class _MasterLayoutState extends State<MasterLayout> {
           onPressed: () {
             print(HttpHelper().fetchCatFacts(''));
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.info,
             color: Colors.brown,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         )
       ],
