@@ -3,3 +3,8 @@ enum SelectedScreen {
   About,
   Contact,
 }
+
+enum LayoutWidget {
+  Row,
+  Column,
+}

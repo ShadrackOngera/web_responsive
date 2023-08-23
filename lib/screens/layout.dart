@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:web_responsive/helpers/http_helper.dart';
 import 'package:web_responsive/routes.dart';
 
+
 class Language {
   final Locale locale;
   final String displayName;
@@ -54,7 +55,7 @@ class _MasterLayoutState extends State<MasterLayout> {
   Widget build(BuildContext context) {
     navigationcontroller.screenWidth.value = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: MediaQuery.of(context).size.width < 900 ? myAppbar() : null,
+      // appBar: MediaQuery.of(context).size.width < 900 ? myAppbar() : null,
       drawer: MyDrawer(),
       body: Row(
         children: [
@@ -64,22 +65,116 @@ class _MasterLayoutState extends State<MasterLayout> {
           Obx(
             () => Expanded(
               child: Column(
+                // mainAxisAlignment: MainAxisAlignment.start,
+                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   myAppbar(),
                   Container(
-                    // width: MediaQuery.of(context).size.width,
-                    alignment: Alignment.center,
-                    // color: Colors.orange,
+                    color: Colors.red,
                     margin: EdgeInsets.all(20),
                     child: navigationcontroller.selectedScreen.value ==
                             SelectedScreen.Home
-                        ? HomeScreen()
+                        ? LayoutBuilder(
+                            builder: (BuildContext context,
+                                BoxConstraints constraints) {
+                              if (constraints.maxWidth > 580) {
+                                return Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: HomeCentre(),
+                                    ),
+                                    VerticalDivider(
+                                      indent: 23,
+                                      thickness: 10,
+                                      width: 10,
+                                      endIndent: 30,
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: HomeRight(),
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                return Column(
+                                  children: [
+                                    HomeCentre(),
+                                    HomeRight(),
+                                  ],
+                                );
+                              }
+                            },
+                          )
                         : navigationcontroller.selectedScreen.value ==
                                 SelectedScreen.Contact
-                            ? ContactScreen()
+                            ? LayoutBuilder(
+                                builder: (BuildContext context,
+                                    BoxConstraints constraints) {
+                                  if (constraints.maxWidth > 580) {
+                                    return Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 2,
+                                          child: ContactCentre(),
+                                        ),
+                                        VerticalDivider(
+                                          indent: 23,
+                                          thickness: 10,
+                                          width: 10,
+                                          endIndent: 30,
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: ContactRight(),
+                                        ),
+                                      ],
+                                    );
+                                  } else {
+                                    return Column(
+                                      children: [
+                                        ContactCentre(),
+                                        ContactRight(),
+                                      ],
+                                    );
+                                  }
+                                },
+                              )
                             : navigationcontroller.selectedScreen.value ==
                                     SelectedScreen.About
-                                ? AboutScreen()
+                                ? LayoutBuilder(
+                                    builder: (BuildContext context,
+                                        BoxConstraints constraints) {
+                                      if (constraints.maxWidth > 580) {
+                                        return Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 2,
+                                              child: AboutCentre(),
+                                            ),
+                                            VerticalDivider(
+                                              color: Colors.pink,
+                                              indent: 23,
+                                              thickness: 10,
+                                              width: 10,
+                                              endIndent: 30,
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: AboutRight(),
+                                            ),
+                                          ],
+                                        );
+                                      } else {
+                                        return Column(
+                                          children: [
+                                            AboutCentre(),
+                                            AboutRight(),
+                                          ],
+                                        );
+                                      }
+                                    },
+                                  )
                                 : null,
                   ),
                 ],
@@ -122,7 +217,22 @@ class _MasterLayoutState extends State<MasterLayout> {
 
   AppBar myAppbar() {
     return AppBar(
+      backgroundColor: Colors.purple.shade200,
       toolbarHeight: 65,
+      leading: navigationcontroller.screenWidth.value < 900
+          ? Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                  icon: const Icon(Icons.menu),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                  tooltip:
+                      MaterialLocalizations.of(context).openAppDrawerTooltip,
+                );
+              },
+            )
+          : null,
       actions: [
         Obx(
           () => Text(
